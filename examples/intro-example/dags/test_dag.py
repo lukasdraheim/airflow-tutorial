@@ -29,7 +29,7 @@ default_args = {
     # 'trigger_rule': u'all_success'
 }
 
-dag = DAG(dag_id='first_test', default_args=default_args. schedule_interval=None)
+dag = DAG(dag_id='first_test', default_args=default_args, schedule_interval=None)
 
 def run_this_func(**context):
     print('hi')
