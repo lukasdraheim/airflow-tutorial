@@ -38,18 +38,19 @@ def run_this_func(**context):
     print('hi, I received the following {str(received_value)})
 
 def push_to_xcom(**context):
+    random_value = random.random()
     context['ti'].xcom_push(key='random_value', value=random_value)
     print('I am okay')
 
-def randomly_fail(**context):
-    if random.random() > 0.7:
-        raise Exception('Exception')
-    print('I am okay')
+#def randomly_fail(**context):
+#    if random.random() > 0.7:
+#        raise Exception('Exception')
+#    print('I am okay')
 
 with dag:
     run_this_task = PythonOperator(
         task_id='123',
-        python_callable=run_this_func,
+        python_callable=push_to_xcom,
         provide_context=True,
         retries=10,
         retry_delay=timedelta(seconds=10)
