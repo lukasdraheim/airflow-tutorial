@@ -64,9 +64,9 @@ with dag:
     )
 
     branch_op = BranchPythonOperator(
-    task_id='0',
-    provide_context=True,
-    python_callable=branch_func
+        task_id='0',
+        provide_context=True,
+        python_callable=branch_func
     )
 
     run_this_task_2 = PythonOperator(
@@ -77,10 +77,9 @@ with dag:
         retry_delay=timedelta(seconds=10)
     )
 
-    run_this_task_3 = PythonOperator
+    run_this_task_3 = PythonOperator(
         task_id='789',
         python_callable=print_hello_branch
-
+    )
 
     run_this_task >> branch_op >> [run_this_task_2, run_this_task_3]
-    
