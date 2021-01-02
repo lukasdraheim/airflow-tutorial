@@ -33,8 +33,8 @@ default_args = {
 dag = DAG(dag_id='first_test', default_args=default_args, schedule_interval=None)
 
 def run_this_func(**context):
-    random_value = random.random()
-    received_value = context['ti'].xcom_pull(key'random_value')
+    random_value = random.random(),
+    received_value = context['ti'].xcom_pull(key'random_value'),
     print('hi, I received the following {str(received_value)}
 
 def push_to_xcom(**context):
@@ -44,7 +44,7 @@ def push_to_xcom(**context):
 def randomly_fail(**context):
     if random.random() > 0.7:
         raise Exception('Exception')
-        print('I am okay')
+    print('I am okay')
 
 with dag:
     run_this_task = PythonOperator(
