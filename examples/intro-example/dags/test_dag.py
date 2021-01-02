@@ -32,18 +32,31 @@ default_args = {
 dag = DAG(dag_id='first_test', default_args=default_args, schedule_interval=None)
 
 def run_this_func(**context):
-    print('hi')
+    random_value = random.random()
+    received_value = context['ti'].xcom_pull(key"'random_value')
+    print('hi, I received the following {str(received_value)}
+
+def push_to_xcom(**context):
+    context['ti'].xcom_push(key='random_value', value=random_value)
+    print('I am okay')
+
+#def always_fail(**context):
+#    raise Exception('Exception')
 
 with dag:
     run_this_task = PythonOperator(
         task_id='123',
         python_callable=run_this_func,
-        provide_context=True
+        provide_context=True,
+        retries=10,
+        retry_delay=timedelta(seconds=10)
     )
 
     run_this_task2 = PythonOperator(
         task_id='456',
         python_callable=run_this_func,
-        provide_context=True
+        provide_context=True,
+        retries=10,
+        retry_delay=timedelta(seconds=10)
     )
     run_this_task >> run_this_task2
