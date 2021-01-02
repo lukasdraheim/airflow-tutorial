@@ -33,7 +33,7 @@ dag = DAG(dag_id='first_test', default_args=default_args, schedule_interval=None
 
 def run_this_func(**context):
     random_value = random.random()
-    received_value = context['ti'].xcom_pull(key"'random_value')
+    received_value = context['ti'].xcom_pull(key'random_value')
     print('hi, I received the following {str(received_value)}
 
 def push_to_xcom(**context):
