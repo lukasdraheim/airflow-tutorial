@@ -4,6 +4,7 @@ import airflow
 from airflow.models import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
+import random
 
 default_args = {
     'owner': 'airflow',
@@ -40,8 +41,10 @@ def push_to_xcom(**context):
     context['ti'].xcom_push(key='random_value', value=random_value)
     print('I am okay')
 
-#def always_fail(**context):
-#    raise Exception('Exception')
+def randomly_fail(**context):
+    if random.random() > 0.7:
+        raise Exception('Exception')
+        print('I am okay')
 
 with dag:
     run_this_task = PythonOperator(
