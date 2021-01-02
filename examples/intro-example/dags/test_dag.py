@@ -2,7 +2,7 @@ from datetime import timedelta
 
 import airflow
 from airflow.models import DAG
-from airflow.operators.python_operator import PythonOperator
+from airflow.operators.python_operator import PythonOperator, BranchPythonOperator
 from airflow.operators.bash_operator import BashOperator
 import random
 
@@ -32,7 +32,7 @@ default_args = {
 
 dag = DAG(dag_id='first_test', default_args=default_args, schedule_interval=None)
 
-def run_this_func(**context):
+def print_hi(**context):
     received_value = context['ti'].xcom_pull(key='random_value')
     print('hi, I received the following {str(received_value)}')
 
@@ -40,6 +40,14 @@ def push_to_xcom(**context):
     random_value = random.random()
     context['ti'].xcom_push(key='random_value', value=random_value)
     print('I am okay')
+
+def print_hello_branch(**context):
+    print('hello branch')
+
+def branch_func(**context):
+    if random.random() < 0.5:
+        return '456'
+    return '789'
 
 #def randomly_fail(**context):
 #    if random.random() > 0.7:
@@ -55,11 +63,24 @@ with dag:
         retry_delay=timedelta(seconds=10)
     )
 
-    run_this_task2 = PythonOperator(
+    branch_op = BranchPythonOperator(
+    task_id='0',
+    provide_context=True,
+    python_callable=branch_func
+    )
+
+    run_this_task_2 = PythonOperator(
         task_id='456',
-        python_callable=run_this_func,
+        python_callable=print_hi,
         provide_context=True,
         retries=10,
         retry_delay=timedelta(seconds=10)
     )
-    run_this_task >> run_this_task2
+
+    run_this_task_3 = PythonOperator
+        task_id='789',
+        python_callable=print_hello_branch
+
+
+    run_this_task >> branch_op >> [run_this_task_2, run_this_task_3]
+    
