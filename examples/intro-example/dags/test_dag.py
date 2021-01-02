@@ -42,8 +42,8 @@ with dag:
     )
 
     runt_this_task2 = PythonOperator(
-        task_id='456'
-        python_callable=run_this_func
+        task_id='456',
+        python_callable=run_this_func,
         provide_context=True
     )
     run_this_task >> run_this_task2
