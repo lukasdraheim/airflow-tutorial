@@ -82,11 +82,11 @@ with dag:
         python_callable=print_hello_branch
     )
 
-    sensing_task = FileSensor(
-        filepath='test.txt',
-        fs_conn_id='some_file_system',
-        poke_interval=10
-    )
+#    sensing_task = FileSensor(
+#        filepath='test.txt',
+#        fs_conn_id='some_file_system',
+#        poke_interval=10
+#    )
 
 
-    sensing_task >> run_this_task >> branch_op >> [run_this_task_2, run_this_task_3]
+run _this_task >> branch_op >> [run_this_task_2, run_this_task_3]
