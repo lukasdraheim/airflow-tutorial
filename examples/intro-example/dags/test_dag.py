@@ -86,7 +86,7 @@ with dag:
         filepath='test.txt',
         fs_conn_id='some_file_system',
         poke_interval=10
-        )
+    )
 
 
-    sensing task >> run_this_task >> branch_op >> [run_this_task_2, run_this_task_3]
+sensing task >> run_this_task >> branch_op >> [run_this_task_2, run_this_task_3]
