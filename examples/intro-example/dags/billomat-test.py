@@ -55,7 +55,7 @@ run_billomat_run = PythonOperator(
 #   retry_delay=timedelta(seconds=10)
 )
 
-run_bllomat_print = PythonOperator(
+run_billomat_print = PythonOperator(
     task_id='2',
     python_callable=billomat_print
 )
