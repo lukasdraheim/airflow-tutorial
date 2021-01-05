@@ -60,4 +60,4 @@ with dag:
         python_callable=billomat_print
         )
 
-        run_billomat_run >> run_billomat_print
+    run_billomat_run >> run_billomat_print
