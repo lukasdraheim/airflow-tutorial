@@ -48,7 +48,7 @@ def billomat_print():
 
 with dag:
     run_billomat_run = PythonOperator(
-        task_id='extract json from billomat',
+        task_id='extract_json_from_billomat',
         python_callable=billomat_run
 #       provide_context=True,
 #       retries=10,
@@ -56,7 +56,7 @@ with dag:
     )
 
     run_billomat_print = PythonOperator(
-        task_id='transform json',
+        task_id='transform_json',
         python_callable=billomat_print
         )
 
