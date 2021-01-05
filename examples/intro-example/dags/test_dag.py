@@ -89,4 +89,4 @@ with dag:
 #    )
 
 
-    run_this_task >> branch_op >> [run_this_task_2, run_this_task_3] >> run_this_task
+    run_this_task >> run_this_task_2 >> branch_op >> [run_this_task_2, run_this_task_3] >> run_this_task
