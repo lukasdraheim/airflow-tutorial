@@ -49,14 +49,15 @@ def billomat_print:
 with dag:
     run_billomat_run = PythonOperator(
         task_id='123',
-#        python_callable=push_to_xcom,
+        python_callable=billomat_run
 #        provide_context=True,
 #        retries=10,
 #        retry_delay=timedelta(seconds=10)
     )
 
     run_bllomat_print = PythonOperator(
-        task_id='456'
+        task_id='456',
+        python_callable=billomat_print
     )
 
 run_billomat_run >> run_billomat_print
