@@ -5,6 +5,7 @@ from airflow.models import DAG
 from airflow.operators.python_operator import PythonOperator, BranchPythonOperator
 from airflow.operators.bash_operator import BashOperator
 import random
+import requests
 
 default_args = {
     'owner': 'airflow',
@@ -32,8 +33,7 @@ default_args = {
 
 dag = DAG(dag_id='billomat', default_args=default_args, schedule_interval=None)
 
-def billomat_run:
-    import requests
+def billomat_run():
     url = 'https://helpcheck.billomat.net/api/invoices?api_key=1c06f5590c6c626b45a26ce30ebff7cd&format=json'
     r = requests.get(url)
     if r.status_code == 200:
@@ -43,7 +43,7 @@ def billomat_run:
     else :
         print('No Success')
 
-def billomat_print:
+def billomat_print():
     print(r)
 
 with dag:
@@ -60,4 +60,4 @@ with dag:
         python_callable=billomat_print
     )
 
-run_billomat_run >> run_billomat_print
+    run_billomat_run >> run_billomat_print
