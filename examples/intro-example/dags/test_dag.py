@@ -30,7 +30,7 @@ default_args = {
     # 'trigger_rule': u'all_success'
 }
 
-dag = DAG(dag_id='first_test', default_args=default_args, schedule_interval=None)
+dag = DAG(dag_id='first_test123', default_args=default_args, schedule_interval=None)
 
 def print_hi(**context):
     received_value = context['ti'].xcom_pull(key='random_value')
