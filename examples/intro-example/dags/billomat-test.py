@@ -46,18 +46,18 @@ def billomat_run():
 def billomat_print():
     print(r)
 
-#
-run_billomat_run = PythonOperator(
-    task_id='1',
-    python_callable=billomat_run
-#   provide_context=True,
-#   retries=10,
-#   retry_delay=timedelta(seconds=10)
-)
+with dag:
+    run_billomat_run = PythonOperator(
+        task_id='1',
+        python_callable=billomat_run
+#       provide_context=True,
+#       retries=10,
+#       retry_delay=timedelta(seconds=10)
+    )
 
-run_billomat_print = PythonOperator(
-    task_id='2',
-    python_callable=billomat_print
-)
+    run_billomat_print = PythonOperator(
+        task_id='2',
+        python_callable=billomat_print
+        )
 
-run_billomat_run >> run_billomat_print
+        run_billomat_run >> run_billomat_print
