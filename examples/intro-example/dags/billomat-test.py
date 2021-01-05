@@ -31,7 +31,7 @@ default_args = {
     # 'trigger_rule': u'all_success'
 }
 
-dag = DAG(dag_id='billomat', default_args=default_args, schedule_interval=None)
+dag = DAG('billomat', default_args=default_args, schedule_interval=None)
 
 def billomat_run():
     url = 'https://helpcheck.billomat.net/api/invoices?api_key=1c06f5590c6c626b45a26ce30ebff7cd&format=json'
